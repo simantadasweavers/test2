@@ -3,6 +3,8 @@ import { Sidebar } from "../../components/admin/Sidebar"
 export const Dashboard = () => {
     return (
         <>
+        <title>Dashboard</title>
+        
             <div class="container-fluid">
                 <div class="row">
 

@@ -11,4 +11,4 @@ const contactSchema = new Schema({
 });
 
 
-module.exports = { contactSchema };
+module.exports = contactSchema;

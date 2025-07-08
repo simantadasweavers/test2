@@ -4,6 +4,7 @@ import { Register } from "../pages/Register"
 import { Login } from "../pages/Login"
 import { Dashboard } from "../pages/admin/Dashboard"
 import { SubmitApp } from "../pages/admin/SubmitApp"
+import { AppDetails } from "../pages/admin/AppDetails"
 
 
 export const Routing = () => {
@@ -14,6 +15,7 @@ export const Routing = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/submit-app" element={<SubmitApp />} />
+            <Route path="/admin/app-details" element={<AppDetails />} />
         </Routes>
     )
 }

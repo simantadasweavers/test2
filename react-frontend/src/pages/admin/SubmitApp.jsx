@@ -1,9 +1,12 @@
 import { Sidebar } from "../../components/admin/Sidebar"
+import { Link } from "react-router-dom"
+import video from '/src/assets/videos/testing.mp4';
 
 export const SubmitApp = () => {
     return (
         <>
-        
+            <title>Submit App</title>
+
             <div class="container-fluid">
                 <div class="row">
 
@@ -33,7 +36,7 @@ export const SubmitApp = () => {
                             <h3>Getting Started</h3>
                             <p>Follow these steps to set up your app in Google Play Console for testing.</p>
                             <div class="text-center mt-4">
-                                <button class="btn btn-success btn-lg">▶ Watch Video Guide</button>
+                                <button class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#videoModal">▶ Watch Video Guide</button>
                                 <p class="mt-2">Learn how to set up your app in 2 minutes <small>(2 min tutorial)</small></p>
                                 <p>or follow written instructions</p>
                             </div>
@@ -72,11 +75,37 @@ export const SubmitApp = () => {
                                 </div>
                             </div>
                             <p class="highlight">Need help? Contact our support team!</p>
-                            <button class="btn btn-custom mt-3">Continue to App Details</button>
+                            <Link to="/admin/app-details" class="btn btn-custom mt-3" style={{ color: 'black' }}>
+                                Continue to App Details
+                            </Link>
+
                         </div>
                     </div>
 
 
+                </div>
+            </div>
+
+
+            {/* video modal */}
+            <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" style={{ color: 'black' }}>Watch Video Guide</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body container">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <video class="embed-responsive-item" controls width="400" height="400">
+                                    <source src={video} type="video/mp4" />
+                                </video>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 

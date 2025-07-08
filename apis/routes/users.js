@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const Mongo = require('../database/mongoose');
-const userSchema = require('../schemas/UserSchema');
+const userSchema = require('../schemas/User');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');

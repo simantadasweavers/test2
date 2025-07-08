@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Mongo = require('../database/mongoose');
-const { contactSchema } = require('../schemas/PagesSchema');
+const contactSchema = require('../schemas/Pages');
 
 router.post('/contact', async (req, res) => {
     try {
