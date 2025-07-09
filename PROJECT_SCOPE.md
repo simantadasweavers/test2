@@ -2,7 +2,7 @@
 1. user register, login , dashboard view
 2. credit system 3$-5$/app. after admin approval testing will start. buy more credits.
 3. user can see app status: 
-    waiting for approval(If any issue mail/report), Started, In progress, Production ready. Eevery status change mail trigger. 
+    waiting for approval(If any issue mail/report), Started, In progress, Production ready. Every status change mail trigger. 
 4. profile update, contact form for with tester TL.
 
 # Admin Features: 

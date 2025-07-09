@@ -6,10 +6,10 @@ const appSchema = new Schema({
     google_play_url: { type: String, require: true },
     apk_file: { type: String, require: true, unique: true },
     apk_image: { type: String, require: true, unique: true },
-    additn_info: String,
+    additional_info: String,
     date: String,
-    user_id: String
+    user_id: {type: mongoose.Types.ObjectId, ref: "User", require: true},
+    tester_id: {type: mongoose.Types.ObjectId, ref: "Tester" } 
 });
-
 
 module.exports = appSchema;

@@ -1,17 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
 const Mongo = require('../database/mongoose');
 const userSchema = require('../schemas/User');
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
-    },
-});
-const upload = multer({ storage: storage });
+const appSchema = require('../schemas/App');
 const bcrypt = require('bcrypt');
 const saltRounds = parseInt(process.env.BYCRYPT_SALT_ROUNDS);
 const jwt = require('jsonwebtoken');
@@ -31,8 +22,11 @@ router.post('/user/register', async (req, res) => {
                         last_name: req.body.last_name,
                         email: req.body.email,
                         password: hashedPassword,
-                        phone: req.body.phone,
-                        loc: req.body.loc,
+                        pri_phone: req.body.pri_phone,
+                        sec_phone: req.body.sec_phone,
+                        role: req.body.role,
+                        active: true,
+                        credits: req.body.credits,
                     });
                     user.save();
 
@@ -96,7 +90,7 @@ router.post('/user/update', async (req, res) => {
             }, { new: true })
                 .then(updatedUser => {
                     if (updatedUser) {
-                        res.status(201).send({ "status": "success", "message": 'User updated successfully'})
+                        res.status(201).send({ "status": "success", "message": 'User updated successfully' })
                     } else {
                         res.status(301).send({ "status": "failed", "result": 'User not found' })
                     }
@@ -122,6 +116,27 @@ router.post('/user/refresh-token', async (req, res) => {
                 let access_token = jwt.sign({ email: decoded['email'], id: decoded['id'] }, process.env.ACCESS_TOKEN_PRIVATE_KEY, { expiresIn: process.env.ACCESS_TOKEN_EXPIRATION });
                 let refresh_token = jwt.sign({ email: decoded['email'], id: decoded['id'] }, process.env.REFRESH_TOKEN_PRIVATE_KEY, { expiresIn: process.env.REFRESH_TOKEN_EXPIRATION });
                 res.status(201).send({ "status": "success", "access_token": access_token, "refresh_token": refresh_token });
+            }
+        } else {
+            res.status(401).send({ "status": "failed", "result": "provide the token" });
+        }
+    } catch (err) {
+        res.status(500).send({ "status": "failed", "result": err });
+    }
+});
+
+
+
+router.post('/user/apps', async (req, res) => {
+    try {
+        const mongo = await Mongo();
+        const App = await mongo.model("App", appSchema);
+        const token = req.headers.authorization.split(' ')[1];
+        if (token) {
+            let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
+            if (decoded['id']) {
+                const apps = await App.find({ user_id: decoded['id'] });
+                res.status(200).send({ "status": "success", "result": apps });
             }
         } else {
             res.status(401).send({ "status": "failed", "result": "provide the token" });

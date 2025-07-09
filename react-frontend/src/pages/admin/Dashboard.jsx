@@ -1,10 +1,37 @@
+import { useState } from "react"
+import { useEffect } from "react";
 import { Sidebar } from "../../components/admin/Sidebar"
+import axios from "../../Auth/Axios";
+
+
 
 export const Dashboard = () => {
+
+    const [app_details, setAppDetails] = useState({});
+
+    useEffect(() => {
+
+        axios({
+            method: 'POST',
+            url: '/user/apps',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => {
+                setAppDetails(res.data.result);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }, [])
+
+
     return (
         <>
-        <title>Dashboard</title>
-        
+            <title>Dashboard</title>
+
             <div class="container-fluid">
                 <div class="row">
 
@@ -18,8 +45,8 @@ export const Dashboard = () => {
                         <div class="row mb-4">
                             <div class="col-md-3 card card-custom text-center p-3">
                                 <h5>Total Apps</h5>
-                                <h3>0</h3>
-                                <p>0 apps submitted</p>
+                                <h3>{app_details.length}</h3>
+                                <p>{app_details.length} apps submitted</p>
                             </div>
                             <div class="col-md-3 card card-custom text-center p-3">
                                 <h5>In Testing</h5>
@@ -44,14 +71,42 @@ export const Dashboard = () => {
                             <div class="col-md-12">
                                 <h3>Your Apps</h3>
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Search by app name, developer name or package name..." />
+
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Logo</th>
+                                                <th scope="col">App Name</th>
+                                                <th scope="col">Google Play URL</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {app_details.length ? app_details.map((key, i) => {
+                                                return (
+                                                <tr key={key.i}>
+                                                    <th scope="row">
+                                                        <img src={import.meta.env.VITE_BACKEND_URL+"/"+key.apk_image} alt="" height="50" width="50" />
+                                                    </th>
+                                                    <td>{key.app_name}</td>
+                                                    <td>{key.google_play_url}</td>
+                                                    <td>
+                                                        <span class="badge text-bg-warning">In Progress</span>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success">Edit</button>
+                                                    </td>
+                                                </tr> )
+                                            }) : ''}
+
+
+                                        </tbody>
+                                    </table>
+
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <select class="form-select w-auto">
-                                        <option>All Apps</option>
-                                        <option>Newest First</option>
-                                    </select>
-                                </div>
+
                             </div>
                         </div>
                     </div>

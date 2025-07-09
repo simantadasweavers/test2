@@ -11,25 +11,27 @@ export const Register = () => {
     const [last_name, setLastName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [phone, setPhone] = useState();
-    const [address, setAddress] = useState();
+    const [pri_phone, setPriPhone] = useState();
+    const [sec_phone, setSecPhone] = useState();
     const navigate = useNavigate();
 
     const handleRegister = (event) => {
         event.preventDefault();
 
-        axios({
-            method: 'POST',
-            url: '/user/register',
-            data: {
-                "first_name": first_name,
-                "last_name": last_name,
-                "email": email,
-                "password": password,
-                "phone": phone,
-                "loc": address
-            }
-        })
+            axios({
+                method: 'POST',
+                url: '/user/register',
+                data: {
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "email": email,
+                    "password": password,
+                    "pri_phone": pri_phone,
+                    "sec_phone": sec_phone,
+                    "role": "user",
+                    "credits": 0
+                }
+            })
             .then((res) => {
                 localStorage.setItem('access_token', res.data.access_token);
                 localStorage.setItem('refresh_token', res.data.refresh_token);
@@ -41,7 +43,7 @@ export const Register = () => {
             })
             .catch((err) => {
                 Swal.fire({
-                    title: "Please try again!",
+                    title: err.response.data.result,
                     icon: "error"
                 });
             })
@@ -80,12 +82,12 @@ export const Register = () => {
                                 <input type="password" class="form-control" id="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" />
                             </div>
                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="number" class="form-control" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter your phone" />
+                                <label for="phone" class="form-label">Primary Phone Number</label>
+                                <input type="number" class="form-control" id="phone" value={pri_phone} onChange={(e) => setPriPhone(e.target.value)} placeholder="Enter your phone" />
                             </div>
                             <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter your address" />
+                                <label for="phone" class="form-label">Secondary Phone Number</label>
+                                <input type="number" class="form-control" id="phone" value={sec_phone} onChange={(e) => setSecPhone(e.target.value)} placeholder="Enter your phone" />
                             </div>
                             <button type="submit" class="btn btn-custom btn-lg">Submit</button>
                         </form>
