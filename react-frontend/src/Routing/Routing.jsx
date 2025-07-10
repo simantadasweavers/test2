@@ -9,6 +9,7 @@ import { SubmitApp } from "../pages/admin/SubmitApp"
 import { EditApp } from "../pages/admin/EditApp"
 import { AppDetails } from "../pages/admin/AppDetails"
 import { FinalApp } from "../pages/admin/FinalApp"
+import { AppSupport } from "../pages/admin/AppSupport"
 
 
 export const Routing = () => {
@@ -18,6 +19,7 @@ export const Routing = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/admin/support" element={<AppSupport />} />
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/edit-app" element={<EditApp />} />
             <Route path="/admin/submit-app" element={<SubmitApp />} />

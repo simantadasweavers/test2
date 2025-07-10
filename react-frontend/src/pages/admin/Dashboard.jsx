@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Sidebar } from "../../components/admin/Sidebar"
 import axios from "../../Auth/Axios";
 
@@ -85,20 +86,21 @@ export const Dashboard = () => {
                                         <tbody>
 
                                             {app_details.length ? app_details.map((key, i) => {
+                                                let app_obj = {app_id: key._id};
                                                 return (
-                                                <tr key={key.i}>
-                                                    <th scope="row">
-                                                        <img src={import.meta.env.VITE_BACKEND_URL+"/"+key.apk_image} alt="" height="50" width="50" />
-                                                    </th>
-                                                    <td>{key.app_name}</td>
-                                                    <td>{key.google_play_url}</td>
-                                                    <td>
-                                                        <span class="badge text-bg-warning">In Progress</span>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-success">Edit</button>
-                                                    </td>
-                                                </tr> )
+                                                    <tr key={key.i}>
+                                                        <th scope="row">
+                                                            <img src={import.meta.env.VITE_BACKEND_URL + "/" + key.apk_image} alt="" height="50" width="50" />
+                                                        </th>
+                                                        <td>{key.app_name}</td>
+                                                        <td>{key.google_play_url}</td>
+                                                        <td>
+                                                            <span class="badge text-bg-warning">Waiting for approval </span>
+                                                        </td>
+                                                        <td>
+                                                            <Link class="btn btn-success" to="/admin/edit-app" state={app_obj} >Edit</Link>
+                                                        </td>
+                                                    </tr>)
                                             }) : ''}
 
 

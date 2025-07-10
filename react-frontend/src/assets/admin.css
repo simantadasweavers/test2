@@ -132,6 +132,21 @@ body {
     color: #00ff00 !important;
 }
 
+label[for="updateFileInput"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+label[for="updateFileInput2"] {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 @media (max-width: 575.98px) {
     .step-card {
         padding: 15px;
