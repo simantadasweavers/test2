@@ -8,4 +8,7 @@ google: https://www.google.com/search?q=how+does+individual+android+app+develope
 medium: https://medium.com/technology-hits/from-20-testers-to-play-store-in-14-days-how-i-published-my-app-4ad5f3b36efe
 
 competitor app: https://www.testerscommunity.com/
+
+ready url for close testing: https://www.youtube.com/watch?v=L9sU_aGeQEY&t=1486s
+
 ```

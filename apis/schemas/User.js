@@ -9,8 +9,8 @@ const userSchema = new Schema({
     pri_phone: { type: String },
     sec_phone: { type: String },
     role: { type: String }, // ex: user
-    active: Boolean,
-    credits: { type: Number, require: true },
+    active: { type: Boolean, default: true } ,
+    credits: { type: Number, require: true, default: 0 },
 });
 
 

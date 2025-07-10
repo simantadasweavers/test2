@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Mongo = require('../database/mongoose');
 const appSchema = require('../schemas/App');
+const userSchema = require('../schemas/User');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const storage = multer.diskStorage({
@@ -19,10 +20,13 @@ router.post('/app/submit_app', upload.fields([{ name: 'apk_file', maxCount: 1 },
     try {
         const mongo = await Mongo();
         const App = await mongo.model("App", appSchema);
+        const User = await mongo.model("User", userSchema);
         const token = req.headers.authorization.split(' ')[1];
         if (token) {
             let decoded = jwt.verify(token, process.env.ACCESS_TOKEN_PRIVATE_KEY);
             if (decoded['id']) {
+                const user = await User.find({ _id: decoded['id'] }).exec();
+                 
                 const app = new App({
                     app_name: req.body.app_name,
                     google_play_url: req.body.google_play_url,
